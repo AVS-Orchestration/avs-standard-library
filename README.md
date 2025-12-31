@@ -40,9 +40,9 @@ avs run VS-001-assembled.yaml
 
 To execute these stories, ensure your workstation is AVS-ready:
 
-1. Install the [AVS Toolkit](https://github.com/AVS-Orchestration/avs-toolkit).
+1. Install the [AVS Toolkit](https://github.com/AVS-Orchestration/avs-toolkit), per the [Guide-Setup-for-Non-Developers](https://github.com/AVS-Orchestration/avs-toolkit/blob/main/docs/Guide-Setup-for-Non-Developers.md).
 
-2. Create a `.env` file in your working directory and add your required API keys (e.g., `GEMINI_API_KEY`, `FIRECRAWL_API_KEY`).
+2. Create a `.env` file in the root of your project folder (where you run the commands) and add your required API keys (e.g., `GEMINI_API_KEY`, `TAVILY_API_KEY`, `FIRECRAWL_API_KEY`).
 
 3. Run `avs doctor` to verify your environment (Node.js, uv, and API keys).
 

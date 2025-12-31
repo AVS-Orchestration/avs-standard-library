@@ -41,7 +41,7 @@ uv pip install -e .
 ```
 
 
-Ensure you have the AVS Toolkit installed and your `.env` file is populated with the required API keys (`GEMINI_API_KEY`, `FIRECRAWL_API_KEY`).
+Ensure you have the AVS Toolkit installed and your `.env` file is populated with the required API keys (`GEMINI_API_KEY`, `TAVILY_API_KEY`, `FIRECRAWL_API_KEY`).
 
 ### 2. Prepare Your "Ground Truth" Data
 
