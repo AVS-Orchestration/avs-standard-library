@@ -42,7 +42,9 @@ To execute these stories, ensure your workstation is AVS-ready:
 
 1. Install the [AVS Toolkit](https://github.com/AVS-Orchestration/avs-toolkit).
 
-2. Run 'avs doctor' to verify your environment (Node.js, uv, and API keys).
+2. Create a `.env` file in your working directory and add your required API keys (e.g., `GEMINI_API_KEY`, `FIRECRAWL_API_KEY`).
+
+3. Run `avs doctor` to verify your environment (Node.js, uv, and API keys).
 
 ## 🤝 Contributing
 
