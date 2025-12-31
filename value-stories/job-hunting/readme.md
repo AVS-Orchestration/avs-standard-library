@@ -64,16 +64,16 @@ Before running, your workspace should look like this.
 **⚠️ Important**: For each new job posting you put through the stream, you should update the `output_path` in your Value Stories to a unique `job-folder-name` (e.g., outputs/nvidia-tpm-role/) to keep your results organized and isolated.
 
 ```
-my-job-hunt/
-├── inputs/
-│   └── raw-resume.md        <-- Your master data (Manual)
-├── outputs/                 
-│   └── job-folder-name/     <-- Job-specific outputs (Automatic)
-│       ├── VS-000_output.md
-│       └── ... 
-├── value-stories/
-│   └── job-hunting/         <-- This logic directory
-└── .env                     <-- Your API Keys
+AVS-Orchestration-Workspace/
+├── .env                        <-- Global API Keys (DO NOT MOVE)
+├── avs-toolkit/                <-- THE ENGINE (Git Repo)
+├── avs-standard-library/       <-- THE BLUEPRINTS (Git Repo)
+│
+└── my-job-hunt/                <-- YOUR PROJECT FOLDER (Create This)
+    ├── inputs/                 
+    │   └── raw-resume.md       <-- Your master data
+    └── outputs/                
+        └── oracle-tpm-role/    <-- Results generated here
 ```
 
 ### 3. Execute the Stream
