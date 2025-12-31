@@ -82,5 +82,5 @@ context_manifest:
 product:
   type: "Analysis/Document"
   format: "Markdown"
-  output_path: ""
+  output_path: "template-test-results/"
 ```
