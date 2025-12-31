@@ -25,11 +25,11 @@ mcp_servers:
 goal:
   as_a: "As a Career Intake Specialist"
   i_want: >
-    to generate a formatted Job Research Brief.  List the target URL, 
+    A professsionally formatted markdown Job Research Report.  List the target URL, 
     the comapny's official name, headquarters, scale, and mission statement, job title, and full job description
   so_that: >
-    The Agentic Value Stream has a grounded "Source of Truth" and a direct 
-    link back to the original opportunity for all subsequent steps.
+    1. I have a human readable copy for my records
+    2. The Agentic Value Stream has a grounded "Source of Truth" and a direct link back to the original job description for subsequent steps in producing a tailored resume.
 ```
 
 ```yaml
@@ -41,11 +41,12 @@ instructions:
       validation_rule: "The corporate data points are extracted; use 'Not Provided' if missing."
     - step: 2
       action: "Synthesize the company profile findings into a Job-Report starting the 'Target URL' followed by a heading of '## Company Profile'. Ensure  is displayed prominently at the top of the report."
-      validation_rule: "The report is professionally formatted in Markdown with the URL included and it clearly lists 
-      1. The official name of the hiring company.
-      2. The mailing address for their corporate headquarters.
-      3. The approximate global employee headcount.
-      4. The company's official Mission Statement or stated core purpose.
+      validation_rule: >
+        The report is professionally formatted in Markdown with the URL included and it clearly lists 
+        1. The official name of the hiring company.
+        2. The mailing address for their corporate headquarters.
+        3. The approximate global employee headcount.
+        4. The company's official Mission Statement or stated core purpose.
     - step: 3
       action: "Review the 'job-description' asset. Note that it is a JSON object. Locate the 'markdown' field within it; this contains the full, raw job posting text."
       validation_rule: "The JSON is parsed and the 'markdown' field is identified for extraction."
@@ -79,5 +80,5 @@ context_manifest:
 product:
   type: "Document"
   format: "Markdown"
-  output_path: "my-job-hunt/outputs/01-open/Oracle_TPgM_Cloud-Apps"
+  output_path: "my-job-hunt/outputs/01-open/Oracle_TPgM_Cloud-Apps/job-description.md"
 ```
