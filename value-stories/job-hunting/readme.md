@@ -1,107 +1,63 @@
-## 🤝 Getting Started
+# Illustrative Example: Tailored Resume Generation
 
-This project uses `uv` for ultra-fast, reproducible Python environment management.
+This folder contains a sequence of Value Stories that demonstrate how to automate complex resume tailoring while maintaining 100% factual accuracy using the AVS Framework.
 
-Contribute: Fork this repo to share your own "Algorithmically Legible" instructions for common industry value streams.
-
-## ✨ Illustrative Example: Tailored Resume Generation
-
-To demonstrate the power of Agentic Value Streams, consider the task of generating a tailored resume for a specific job application. This complex task can be broken down into a sequence of interconnected Value Stories:
+## 🔄 The Process Flow
 
 ```mermaid
 graph LR
     subgraph Process [The AVS Pattern]
         direction TB
-        VS-004(Company Research)
-        VS-001(Strategy)
-        VS-002(Resume Draft)
-        VS-003(Audit & Final)
+        VS-000(Intake & Extraction)
+        VS-001(Analysis & Strategy)
+        VS-002(Resume Generation)
+        VS-003(Audit & Remediate)
         
-        %% Vertical flow connections
-        VS-004 ==> VS-001 ==> VS-002 ==> VS-003 
+        VS-000 ==> VS-001 ==> VS-002 ==> VS-003 
     end
-
-    Context[(MCP,<br>Database,<br>File System,<br>URL, etc)]
-
-    %% Connections to the right
-    VS-004 <-.-> Context
+    Context[(Live Web,<br>Local Files,<br>LinkedIn)]
+    VS-000 <-.-> Context
     VS-001 <-.-> Context
     VS-002 <-.-> Context
     VS-003 <-.-> Context
-    VS-003 ==> Context
+
 ```
 
-### 1. VS-001: Analysis & Strategy
+## 0. VS-000: Intake & Extraction
 
-- **Goal:** Understand the job description and the candidate's existing resume to identify key skills, experiences, and keywords for optimal matching.
-- **Instructions:**
-    *   Parse job description to extract required skills, keywords, and responsibilities.
-    *   Parse candidate's raw resume to identify relevant experience, education, and achievements.
-    *   Perform a gap analysis between job requirements and candidate profile.
-    *   Develop a strategic plan for resume tailoring, including prioritization of content and keyword integration.
-- **Context-Manifest:** Job description (URL or text), Candidate's raw resume (PDF or text).
-- **Product:** Strategy Report (The "Algorithm" for the next step).  
+**Goal**: Generate a grounded "Source of Truth" by scraping a job URL and extracting the official company mission, scale, and headquarters.
 
-### 2. VS-002: Resume Generation
+**Product**: Company Research Brief (The foundation for all subsequent steps).
 
-- **Goal:** Produce a draft resume tailored to the specific job application, following the strategic plan.
-- **Instructions:**
-    *   Select and prioritize relevant sections and bullet points from the candidate's raw resume based on the strategic plan.
-    *   Rewrite/rephrase existing bullet points to incorporate job-specific keywords and align with the job description's language.
-    *   Ensure resume adheres to best practices for formatting and readability.
-- **Context-Manifest:** Output from VS-001 (strategic plan), Candidate's raw resume, Resume formatting guidelines.
-- **Product:**  Tailored Resume Draft
-### 3. VS-003: Audit (Hallucination Detection)
+## 1. VS-001: Analysis & Strategy
 
-- **Goal:** Conduct a forensic audit of the tailored resume to ensure zero fabrication of facts. Identify and report any claims that deviate from the factual ground truth of the raw resume.
-- **Instructions:**
-    *   Compare tailored resume against job description for keyword density and thematic alignment.
-    *   Check for clarity, conciseness, and absence of generic language.
-    *   Identify any remaining gaps or areas for improvement.
-    *   Suggest specific revisions to optimize the resume further.
-- **Context-Manifest:** Tailored resume (draft), Original job description, Best practices for resume optimization.
-- **Product:**  Audit Report & Finalized Resume.
+**Goal**: Identify key skills and keywords from the job description and map specific candidate achievements to create a Strategic Alignment Matrix.
 
-### The Automation Step: Assembling the AI Prompt
+**Product**: Strategy Report (The "Algorithm" for the drafting phase).
 
-Within each Value Story in the AVS framework, "Automation" isn't the AI thinking; it is the **assembly line** that builds the perfect prompt.
+## 2. VS-002: Resume Generation
 
-To multiply human value, we don't just "ask the AI." We automate assembling the prompt by combining:
-1.  **The Goal:** The specific outcome defined by the human architect.
-2.  **The Instructions:** The "Algorithmically Legible" logic for *how* to do the work.
-3.  **The Context-Manifest:** The specific data (e.g., `job-description.md` and `raw-resume.md`) needed to prevent hallucination.
+**Goal**: Produce a fully tailored resume draft that pivots the candidate's narrative (e.g., to 'Technical Product Leader') while incorporating JD-specific keywords.
 
-This process generates a single, auditable package (the Value Story YAML) that serves as the **Context-Rich, Algorithmically Legible Prompt** for the Agent.
+**Product**: Tailored Resume Draft.
 
-*👉 Check the `/illustrative-example` folder to see the input files and the resulting assembled YAML.*
+## 3. VS-003: Audit & Remediate (Forensic Gatekeeper)
 
-### Orchestration Sequence
+**Goal**: Perform a forensic cross-reference between the draft and the "Ground Truth" resume to identify and remove any hallucinations.
 
-This sequence diagram illustrates the temporal hand-off between the Human Architect, the Automation script (using uv), and the AI Agent for each story in the stream.
+**Product**: Hallucination Audit Report & Final Remediated Resume.
 
-```mermaid
-sequenceDiagram
-    participant H as Human Architect
-    participant A as Automation (uv run)
-    participant C as Context Store (JD/Resume)
-    participant AG as Agentic Agent
-    
-    Note over H, C: Planning Phase
-    H->>H: Write Value Story (Goal, Instructions, and Context-Manifest (.md))
-    H->>A: Provide Value Story (.md)
-    A->>C: Request Context
-    C-->>A: Provide Context
-    A->>A: Assemble Package (.YAML)
-    
-    Note over A, AG: Execution Phase
-    A->>AG: Provide Algorithmically Legible Prompt
-    AG->>AG: Execute Goal
-    AG->>H: Output Product
-    
-    Note over H, C: Review Phase
-    alt Choice: Refine Logic
-        H->>H: Refine Value Story
-    else Choice: Accept & Release
-        H->>C: Accept & Release (Update Context)
-end
+## 🚀 How to Run
+
+Ensure you have the AVS Toolkit installed and your environment variables (`GEMINI_API_KEY`, `FIRECRAWL_API_KEY`) set.
+
+Run the sequence starting from the intake:
+
+```text
+avs assemble ./value-stories/job-hunting/vs-001-logic-analysis.md
 ```
+
+## 📄 Attribution
+
+Framework by Patrick Heaney (CC BY-SA 4.0). Canonical home: AVS-Orchestration/avs-standard-library.
+

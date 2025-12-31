@@ -82,5 +82,5 @@ context_manifest:
 product:
   type: "Document"
   format: "Markdown"
-  output_path: "illustrative-example/"
+  output_path: "outputs/"
 ```
