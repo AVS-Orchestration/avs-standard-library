@@ -6,15 +6,15 @@ This repository serves as a community resource and "Standard Library" of algorit
 
 ## 📂 Repository Structure
 
-- '/stories': Sanitized, production-ready Value Stories for various industries.
+- `/value-stories`: Sanitized, production-ready Value Stories for various industries.
 
-    - '/job-hunting': Resumes, Cover Letters, and Interview Prep.
+    - `/job-hunting`: Resumes, Cover Letters, and Interview Prep.
 
-    - '/research': Market analysis and data synthesis.
+    - `/speech-2-value-story`: **The Meta-Architect**. A workflow to convert raw voice transcripts into valid AVS Value Stories automatically.
 
-    - '/coding': Code reviews and architectural planning.
+    - `/research`: Market analysis and data synthesis.
 
-- '/templates': Blank YAML and Markdown templates for creating your own stories.
+- `/templates`: Blank YAML and Markdown templates for creating your own stories.
 
 ## 🚀 How to Use
 
