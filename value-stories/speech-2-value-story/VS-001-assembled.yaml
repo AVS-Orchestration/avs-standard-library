@@ -1,0 +1,103 @@
+metadata:
+  story_id: VS-001
+  version: '1.0'
+  author: AVS Standard Library
+  status: assembled
+  provider: ollama
+  preferred_model: llama3
+  assembled_at: '2026-01-02T11:23:43.376315'
+goal:
+  as_a: As a AVS Solution Architect
+  i_want: 'Analyze a raw ''Discovery Interview'' transcript and compile it into a
+    valid, executable AVS Value Story (.md) that strictly follows the ''vs-000-template.md''
+    structure.
+
+    '
+  so_that: 'Non-technical users can simply ''speak'' their intentions (via the interview)
+    and have them automatically converted into precise, algorithmically legible agent
+    instructions without learning YAML syntax.
+
+    '
+instructions:
+  reasoning_pattern: Chain-of-Thought
+  execution_steps:
+  - step_number: 1
+    action: Analyze the 'transcript' asset. Extract the user's answers regarding the
+      'Goal' (The Why), 'Inputs' (Context), 'Process' (Instructions), and 'Output'
+      (Product).
+    validation_rule: The 4 core components of the user's intent are clearly identified.
+  - step_number: 2
+    action: 'Map the extracted intent into the ''vs_template'' structure: 1. Map ''Goal''
+      answers to the ''goal:'' YAML block (as_a, i_want, so_that). 2. Map ''Inputs''
+      to the ''context_manifest:'' YAML block (key, description, default_path). 3.
+      Map ''Process'' to the ''instructions:'' YAML block (create logical execution_steps).
+      4. Map ''Output'' to the ''product:'' YAML block.'
+    validation_rule: Every piece of the user's intent is mapped to a valid field in
+      the template schema.
+  - step_number: 3
+    action: Generate the final Markdown file. Ensure it includes the standard headers
+      (# VS-XXX...) and correctly formatted YAML code blocks. Do not summarize the
+      template structure; preserve the YAML syntax exactly.
+    validation_rule: The output is a valid Markdown file that would pass 'avs validate'.
+mcp_servers: []
+context_manifest:
+- key: transcript
+  description: The raw text of the Discovery Interview containing the user's answers.
+  default_path: avs-standard-library/value-stories/speech-2-value-story/paste-transcript-in-here.md
+  search_query: null
+  mcp_tool_name: null
+  mcp_tool_args: {}
+  content: '## Copy your value story discussion transcript and paste it below this
+    line
+
+    as an AVS user, I need to create a, I need a value story that intakes a job description,
+    strategy document, and a resume, and writes a cover letter to go with the resume
+    in my application. I need you to write the value story. Including the instructions'
+- key: vs_template
+  description: The official AVS Building Code template that defines the required structure.
+  default_path: avs-standard-library/templates/vs-000-template.md
+  search_query: null
+  mcp_tool_name: null
+  mcp_tool_args: {}
+  content: "# VS-000: Template for New Value Stories\n\n```txt\n# ARCHITECT'S GUIDE:\
+    \ How to use this template\n# 1. Provide a Story ID (VS-XXX) in the title above.\n\
+    # 2. Fill in the 'goal' with a statement longer than 20 characters.\n# 3. List\
+    \ at least 2 'execution_steps' with specific 'validation_rules'.\n# 4. Define\
+    \ your 'context_manifest' using local paths or MCP URIs.\n```\n\n## Metadata\n\
+    \n```yaml\nmetadata:\n  story_id: \"VS-000\"\n  version: \"1.5\"\n  author: \"\
+    Patrick Heaney\"\n  preferred_model: \"llama3\"\n```\n\n## THE MCP MANIFEST: Defines\
+    \ ephemeral servers (e.g., firecrawl, filesystem)\n\n```yaml\nmcp_servers:\n \
+    \ - name: \"firecrawl\"\n    command: \"npx\"\n    args: [\"-y\", \"firecrawl-mcp\"\
+    ]\n```\n\n## THE GOAL: The \"North Star\" for the Agentic-Agent\n\n```yaml\ngoal:\n\
+    \  as_a: \"As a <customer/role who receives the value>\"\n  i_want: >\n    Define\
+    \ exactly what success looks like in at least 20 characters.\n    Include specific\
+    \ requirements as bullet points if necessary.\n  so_that: >\n    The agent understands\
+    \ the business value and rationale behind the task.\n```\n\n## INSTRUCTIONS: The\
+    \ Core Algorithm (Execution Logic)\n\n```yaml\ninstructions:\n  reasoning_pattern:\
+    \ \"Chain-of-Thought\"\n  execution_steps:\n    - step: 1\n      action: \"Review\
+    \ the raw JSON asset (e.g., 'scraped_data'). Locate the 'markdown' field; this\
+    \ contains the target text for extraction.\"\n      validation_rule: \"The JSON\
+    \ is successfully parsed and the specific field is identified.\"\n    - step:\
+    \ 2\n      action: \"Synthesize findings into a business report or summary.\"\n\
+    \      validation_rule: \"The synthesis is accurate and formatted in Markdown.\"\
+    \n    - step: 3\n      action: \"Create a heading '# Appendix: Source Text'. Under\
+    \ this, reproduce the content of the field from Step 1 VERBATIM. Do NOT summarize\
+    \ or omit sections. Output the text exactly as it appears in the source.\"\n \
+    \     validation_rule: \"The full, un-summarized source text is included in the\
+    \ output.\"\n```\n\n## CONTEXT MANIFEST: The \"Bill of Materials\" for the Information\
+    \ Hunt\n\n```yaml\ncontext_manifest:\n  - key: \"web_research\"\n    description:\
+    \ \"Real-time data fetched from the internet using Gemini Search.\"\n    search_query:\
+    \ \"Current market news and competitor news for the `Agentic Value Stream`.\"\n\
+    \n  - key: \"scraped_data\"\n    description: \"Data retrieved via an MCP tool\
+    \ call.\"\n    mcp_tool_name: \"firecrawl_scrape\"\n    mcp_tool_args:\n     \
+    \ url: \"https://www.mphasis.com/home/thought-leadership/blog/how-can-enterprises-transform-value-streams-with-agentic-ai.html\"\
+    \n      formats: [\"markdown\"]\n\n  - key: \"primary_context\"\n    description:\
+    \ \"The main source document.\"\n    default_path: \"path/to/source.md\"\n```\n\
+    \n## PRODUCT: The expected deliverable\n\n```yaml\nproduct:\n  type: \"Analysis/Document\"\
+    \n  format: \"Markdown\"\n  output_path: \"template-test-results/\"\n```\n"
+product:
+  type: Value Story
+  format: Markdown
+  output_path: avs-standard-library/value-stories/speech-2-value-story/vs-xxx-your-vs.md
+  handoff_repo: null
+  handoff_path: null
