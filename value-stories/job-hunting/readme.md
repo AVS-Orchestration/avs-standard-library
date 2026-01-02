@@ -20,7 +20,6 @@ graph LR
     VS-001 <-.-> Context
     VS-002 <-.-> Context
     VS-003 <-.-> Context
-
 ```
 
 ## 🚀 Quick Start: Running the Stream
