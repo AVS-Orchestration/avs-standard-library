@@ -1,0 +1,2 @@
+## Copy your value story discussion transcript and paste it below this line
+as an AVS user, I need to create a, I need a value story that intakes a job description, strategy document, and a resume, and writes a cover letter to go with the resume in my application. I need you to write the value story. Including the instructions
