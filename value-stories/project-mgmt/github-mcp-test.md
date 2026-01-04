@@ -1,0 +1,3 @@
+Here is a summary of the contents in exactly two sentences:
+
+The "fetched_file" asset contains a comprehensive guide to the Agentic Value Stream (AVS) framework, which enables the integration of Large Language Models (LLMs) with human oversight and decision-making. The document outlines the AVS pattern, including its process flow, core definitions, and strategic shift, as well as providing an illustrative example of tailoring a resume using the framework's toolkit CLI commands.

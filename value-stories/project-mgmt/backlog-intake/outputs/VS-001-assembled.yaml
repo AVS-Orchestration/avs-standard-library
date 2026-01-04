@@ -1,0 +1,330 @@
+metadata:
+  story_id: VS-001
+  version: '1.0'
+  author: AVS Standard Library
+  status: assembled
+  provider: ollama
+  preferred_model: qwen2.5-coder:32b
+  assembled_at: '2026-01-02T22:40:26.845790'
+goal:
+  as_a: As a Technical Project Manager
+  i_want: 'Analyze a raw discussion transcript and extract one or more structured
+    GitHub Issues.  Each issue must include a concise title, detailed description,
+    categorized issue type (Bug, Feature, Task),  and a list of relevant labels.
+
+    '
+  so_that: 'Raw human intent is converted into actionable, well-defined work items
+    that can be  seamlessly transitioned into a technical backlog.
+
+    '
+instructions:
+  reasoning_pattern: Chain-of-Thought
+  execution_steps:
+  - step_number: 1
+    action: Review the 'transcript' asset and the target 'repository_context' (if
+      provided). Identify distinct requests, bug reports, or feature ideas mentioned
+      by the stakeholders.
+    validation_rule: A mental list of independent work items is formed.
+  - step_number: 2
+    action: For each identified item, determine the appropriate 'Issue Type' based
+      on the definitions in the provided template assets (`template_issue`, `template_user_story`)
+      or standard GitHub conventions.
+    validation_rule: Every item is categorized correctly.
+  - step_number: 3
+    action: 'Draft a high-fidelity ''GitHub Issue Proposal'' for each item. Format:
+      ### [Issue Type]: [Concise Title] **Description**: [Detailed technical or business
+      summary] **Acceptance Criteria**: [Bullet points defining success] **Labels**:
+      [Suggested labels based on the repo context]'
+    validation_rule: Proposals are drafted with sufficient detail for a developer
+      to understand.
+  - step_number: 4
+    action: Compile all proposals into a single Markdown report. Use '## Issue X'
+      headers for each proposal.
+    validation_rule: The final report is well-structured and contains all extracted
+      items.
+mcp_servers:
+- name: internal-github
+  command: python
+  args:
+  - avs-toolkit/src/avs_toolkit/github_mcp.py
+  env: null
+context_manifest:
+- key: transcript
+  description: The raw text of the backlog discussion or meeting notes.
+  default_path: avs-standard-library/value-stories/project-mgmt/backlog-intake/inputs/transcript.txt
+  search_query: null
+  mcp_tool_name: null
+  mcp_tool_args: {}
+  content: As a project manager I spend a lot of time making sure my developers have
+    the information they need to devevelop and deliver the features, user stories,
+    and issue resolutions, they are working on.  Often many important details discussed
+    in a meeting get lost or written down incorrectly.  I would like a value stream
+    with the ability to analyze a transcript, and a repo's READEM and ISSUE_TYPES,
+    then within the transcript identify any number of new feature requests, user strories,
+    or issues and ultimately synthesize them formal feature requests, user stories,
+    stories issues, and push them to the github repo.
+- key: repository_context
+  description: Repo README.
+  default_path: null
+  search_query: null
+  mcp_tool_name: fetch_github_file
+  mcp_tool_args:
+    owner: AVS-Orchestration
+    repo: avs-toolkit
+    path: README.md
+  content: "# AVS Value Story\n\n## A Framework for Making AI your personal Force\
+    \ Multiplier.\n\nDeveloped by **Patrick Heaney**, this framework provides a rigorous\
+    \ methodological shift from \"automating work\" to **multiplying value** by externalizing\
+    \ tacit knowledge into **Algorithmically Legible Instructions**.\n\n## \U0001F680\
+    \ **The Problem: The Information Hunt**\n\nThe current crisis in knowledge work\
+    \ is characterized by the **\"5\u201315 hour information hunt\"**\u2014time lost\
+    \ every week by workers simply trying to gather the context needed to do their\
+    \ actual jobs [cite: 1.1, 2.1]. This **\"context blindness\"** is the primary\
+    \ reason AI requires excessive human oversight [cite: 2.4, 6.2] and fails to produce\
+    \ acceptable results.\n\n# \U0001F4A1 **The Solution: Agentic Value Streams (AVS)**\n\
+    \nThe Agentic Value Stream (AVS) tracks the flow of agency and decision-making\
+    \ rather than just static data [cite: 1.1]. It organizes the capabilities of Large\
+    \ Language Models (LLMs) into a **cascading, iterative, and cumulative sequence**\
+    \ of value creation centered around the Value Story [cite: 1.1].\n\n**Web Research\
+    \ Integration:** AVS now integrates **Live Web Research** via Gemini 2.5 Flash\
+    \ with Google Search grounding to automate the retrieval of public information\
+    \ and market data.\n\n```mermaid\ngraph LR\n    subgraph Process [The AVS Pattern]\n\
+    \        direction TB\n        VS-000(Intake & Research)\n        VS-001(Analysis\
+    \ & Strategy)\n        VS-002(Product Generation)\n        VS-003(Review & Refine)\n\
+    \n        \n        %% Vertical flow connections\n        VS-000 ==> VS-001 ==>\
+    \ VS-002 ==> VS-003 \n    end\n\n    Context[(MCP,<br>Database,<br>File System,<br>URL,\
+    \ etc)]\n    AI-CLoud[(Web Search API)]\n\n    %% Connections to the right\n \
+    \   VS-000 <-.-> AI-CLoud\n    VS-000 <-.-> Context\n    VS-001 <-.-> Context\n\
+    \    VS-002 <-.-> Context\n    VS-003 <-.-> Context\n    VS-003 ==> Context\n\
+    ```\n\n## Core Definitions\n\n**Value Story**: The atomic unit of agentic work.\
+    \ It is a self-contained module comprising a **Goal** (Outcome), **Instructions**\
+    \ (Algorithm), and **Context-Manifest** (Data) [cite: 2.1.3].\n\nEvery Value Story\
+    \ in this repository follows the **Agile v1.2 Standard**, ensuring that every\
+    \ unit of work is aligned with a specific persona and business outcome:\n\n* **As\
+    \ a [Persona]**: Defines the perspective and voice of the agent.\n\n* **I want\
+    \ [Action]**: Defines the specific technical deliverable and success metrics.\n\
+    \n* **So that [Value]**: Provides the \"Why,\" allowing the agent to resolve ambiguities\
+    \ through the lens of intended value.\n\n**Algorithmically Legible Instructions**:\
+    \ Precise enough for an AI-Agent to execute with zero \"context blindness,\" yet\
+    \ semantically clear enough for Human-Agents to oversee and audit [cite: 2.2.2].\n\
+    \n**Context-Manifest**: A mandatory component that shifts the burden of information\
+    \ retrieval from \"runtime execution\" to \"design-time definition.\" It supports\
+    \ local files and **Live Web Research** via the `search_query` field [cite: 2.2.3].\n\
+    \n## \U0001F9E0 The Strategic Shift\n\nUnder the **AVS Framework**, the highest-value\
+    \ human contributions complete the shift higher level thinking. Users shift from\
+    \ \"doing the work\" to strategicly generating and improving the goals, instructions,\
+    \ and context, used by Agentic-AI-Agents to produce the product. This moves the\
+    \ human architect from the role of a \"task-manager\" to a **\"Orchestrator of\
+    \ Agency\"** and moves the Agentic AI Agent from a \"task-doer\" to a **\"force\
+    \ multiplier.\"**\n\n# \U0001F6E0\uFE0F The Value Story Lifecyle\n\nThis diagram\
+    \ illustrates the **Value Story** lifecycle: **Plan** (Human), **Run** (Agent),\
+    \ and **Review** (Human).\n\n```mermaid\ngraph TD\n    subgraph VS [\" \"]\n \
+    \       subgraph plan [\"<span style='font-size:20px'>**1-Plan**</span>\"]\n \
+    \           Start([Human-Agent]) ==> Goal\n            Goal --> Instructions -->\
+    \ Context-Manifest\n            Start ==> Instructions\n            Start ==>\
+    \ Context-Manifest\n        end\n        subgraph run  [\"<span style='font-size:20px'>**2-Run**</span>\"\
+    ]\n            Goal ==> Automation\n            Instructions ==> Automation\n\
+    \            Context-Manifest ==> Automation\n            Automation == **.YAML**\
+    \ ==> AI-Agent\n        end\n        subgraph review [\"<span style='font-size:20px'>**3-Review**</span>\"\
+    ]\n            AI-Agent ==> Product\n            Business-Review{Human<br>Review}\n\
+    \            Product ==> Business-Review\n            Business-Review -- **Refine**\
+    \ --> Goal\n            \n        end\n        Business-Review == **Release**\
+    \ ==> Context[(GitHub, MCP,<br>Local Files)]\n        Context <==> Automation\n\
+    \    end\n    \n    %% Syles\n    classDef Plan fill:#ffb6c1,stroke:#333,stroke-width:2px;\n\
+    \    classDef Run fill:#90ee90,stroke:#333,stroke-width:2px;\n    classDef Review\
+    \ fill:#add8e6,stroke:#333,stroke-width:2px;\n    \n    %% Assignments\n    class\
+    \ plan Plan;\n    class run Run;\n    class review Review;\n```\n\n## Illustrative\
+    \ Example\n\nBefore diving into the technical setup, you can explore a complete\
+    \ Illustrative Example focused on tailoring a resume. This walkthrough demonstrates\
+    \ how a sequence of Value Stories generates a high-fidelity \"Strategic Alignment\
+    \ Matrix,\" mapping a candidate's background to specific job requirements to ensure\
+    \ the agent produces a competitive, fact-based product without context blindness.\n\
+    \n# Getting Started\n\n## 1. Prerequisites\n\n### For Non-Developers\n\nFollow\
+    \ the detailed instructions in the [Guide-Setup-for-Non-Developers](./docs/Guide-Setup-for-Non-Developers.md)\n\
+    Ensure you have `homebrew` installed on your system:\n### For Developers\n\nVerify\
+    \ installation on macOS and Windows (assuming Git Bash or similar shell on Windows)\n\
+    \n```bin\nif command -v uv &> /dev/null; then\n    echo \"uv is installed. Version\
+    \ information:\"\n    uv --version\nelse\n    echo \"uv is not installed or not\
+    \ found in the system's PATH.\"\nfi\n```\n\nIf `uv` is not installed, I included\
+    \ instructions in Phase 5 of the [Setup for Non-Developers](./docs/Guide-Setup-for-Non-Developers.md)\
+    \ guide.\n\n* **Ollama**: Install [Ollama](https://ollama.com) and run `ollama\
+    \ pull llama3`.\n* **Gemini API Key**: Required for live web research. Set it\
+    \ in your environment: `export GEMINI_API_KEY=\"your_key\"`.\n* **Firecrawl API\
+    \ Key**: Required for web scraping. Set export FIRECRAWL_API_KEY=\"your_key\"\
+    .\n\n## 2. Installation\n\nClone the repository and install the toolkit. You have\
+    \ two options:\n\n### Option A: Global System-Wide (Recommended)\nThis makes the\
+    \ `avs` command available in any folder on your computer.\n```bash\ngit clone\
+    \ https://github.com/AVS-Orchestration/avs-toolkit.git\ncd avs-toolkit\nuv tool\
+    \ install .\n```\n\n### Option B: Local Developer Mode\nUse this if you plan on\
+    \ modifying the toolkit's source code.\n```bash\ngit clone https://github.com/AVS-Orchestration/avs-toolkit.git\n\
+    cd avs-toolkit\nuv sync\n```\n*Note: In local mode, you must prefix commands with\
+    \ `uv run avs`.*\n\n## 3. Your First Governance Pass\n\nValidate the provided\
+    \ template to ensure your environment is configured correctly:\n\n```bin\nuv run\
+    \ avs validate vs-000-template.yaml\n```\n\n## \U0001F6E0 The Toolkit CLI\n\n\
+    The `avs` toolkit provides a suite of commands to move from architectural intent\
+    \ to execution.\n\n### `validate`\n\n`uv run avs validate `\n\nChecks a Value\
+    \ Story against the \"Building Code\" (Pydantic models). It ensures your goal\
+    \ is properly framed and your instructions meet the minimum precision requirements.\n\
+    \n```bin\nuv run avs validate avs-standard-library/templates/vs-000-template.md\n\
+    ```\n\n### `assemble`\n\n`uv run avs assemble `\n\nThe \"Information Hunt\" automation.\
+    \ It reads your `context_manifest`, **performs live web research via Gemini 1.5\
+    \ Flash** (if `search_query` is present), and packages everything into a **Briefcase**\
+    \ (`*-assembled.yaml`) stamped with a unique `assembled_at` timestamp.\n\n```bin\n\
+    uv run avs assemble avs-standard-library/templates/vs-000-template.md\n```\n\n\
+    ### `run`\n\n`uv run avs run `\n\nExecutes the Value Story. If the file has not\
+    \ been assembled yet, `run` will automatically perform the assembly step before\
+    \ dispatching the payload to your local LLM (defaulting to Ollama/Llama3).\n\n\
+    ```bin\nuv run avs run avs-standard-library/templates/vs-000-template.md --local\n\
+    ```\n\n\U0001F9E0 **Advanced**: See [Model Orchestration Guide](docs/GUIDE_MODEL_ORCHESTRATION.md)\
+    \ for using specialized models like Gemma or Mistral.\n\n## \U0001F4C2 Architecture:\
+    \ Value Story vs. Briefcase\n\nThe AVS Toolkit manages the lifecycle of a Value\
+    \ Story through three distinct file types visible in the repository:\n\n1. **The\
+    \ Value Story (`VS-XXX.md`)**: The human-editable source of truth. It contains\
+    \ the Goal, Instructions, and pointers to context. This is what you commit to\
+    \ Git.\n2. **The Assembled VS (`VS-XXX-assembled.yaml`)**: An execution-ready\
+    \ snapshot. Created by `avs assemble`, it contains the logic plus the **full injected\
+    \ text** of all context assets.\n3. **The Output Product (`VS-XXX_output.md`)**:\
+    \ The final deliverable generated by the Agent. This is saved to the `output_path`\
+    \ defined in your Blueprint (e.g., `outputs/` or `illustrative-example/`).\n\n\
+    > **Tip:** We recommend adding `*-assembled.yaml` to your `.gitignore` to prevent\
+    \ repository bloat and accidental exposure of sensitive context data.\n\n## \U0001F3D7\
+    \ Repository Structure\n\n* `src/avs_toolkit/`: The core orchestration engine.\n\
+    \  * `models.py`: Pydantic data schemas for Value Stories.\n  * `parser.py`: Hybrid\
+    \ YAML/Markdown logic engine.\n  * `runner.py`: Local execution logic for Ollama/Llama3.\n\
+    \  * `main.py`: CLI command definitions.\n* `illustrative-example/`: A complete\
+    \ Resume Tailoring stream.\n\n* `VS-000-template.md`: Master markdown template\
+    \ for new Value Stories.\n* `Visual-Studio-Code-Setup-Guide.md`: Dev environment\
+    \ optimization.\n* `docs/`: A library of implementation guides including [Gemini\
+    \ Search Setup](./docs/GUIDE_GEMINI_SEARCH_SETUP.md).\n* `ARCHITECTURE.md` & `SOURCES.md`:\
+    \ Framework documentation.\n\n## \U0001F3C5 About the Author\n\nPatrick Heaney\
+    \ brings over 20 years of experience in high-stakes program management and the\
+    \ intelligence community [cite: user_context].\n\nRecipient of two \"US Army Top\
+    \ 10 Inventions\" awards for systems that drastically reduced friction and saved\
+    \ lives in combat environments [cite: user_context].\n\nArchitect of the AVS Framework,\
+    \ designed to solve the structural \"context gap\" in modern enterprise AI [cite:\
+    \ 1.1, 6.2].\n\n## \U0001F4C4 License & Attribution\n\nThis work is licensed under\
+    \ the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).\n\
+    \n### How to Cite\n\nIf you utilize this framework, templates, or logic in a professional,\
+    \ academic, or commercial context, please provide attribution as follows:\n\n\
+    Heaney, P. (2025). AVS Value Story: A Framework for Autonomous Orchestration.\
+    \ GitHub: PatrickHeaney/avs-value-story.\n"
+- key: template_issue
+  description: The General Issue template.
+  default_path: null
+  search_query: null
+  mcp_tool_name: fetch_github_file
+  mcp_tool_args:
+    owner: AVS-Orchestration
+    repo: avs-toolkit
+    path: .github/ISSUE_TEMPLATE/issue.md
+  content: '---
+
+    name: Issue
+
+    about: A user report of something not working as expected.
+
+    title: ''''
+
+    labels: ''''
+
+    assignees: ''''
+
+
+    ---
+
+
+    **reporter:** Name/Role of the person who found the issue.
+
+
+    **expected_behavior:**
+
+    A clear and concise description of what you expected to happen.
+
+
+    **actual_behavior:**
+
+    A clear and concise description of what actually happened.
+
+
+    **steps_to_reproduce:**
+
+    1. Go to ''...''
+
+    2. Click on ''....''
+
+    3. Scroll down to ''....''
+
+    4. See error
+
+
+    **environment_context:**
+
+    - OS/Browser:
+
+    - Version/Build:
+
+    - Account ID/Environment:
+
+
+    **related_problem:** (Link to the Parent Problem if identified)
+
+    '
+- key: template_user_story
+  description: The User Story template.
+  default_path: null
+  search_query: null
+  mcp_tool_name: fetch_github_file
+  mcp_tool_args:
+    owner: AVS-Orchestration
+    repo: avs-toolkit
+    path: .github/ISSUE_TEMPLATE/user-story.md
+  content: '---
+
+    name: User Story
+
+    about: Smallest unit of releasable value for new development.
+
+    title: ''''
+
+    labels: ''''
+
+    assignees: ''''
+
+
+    ---
+
+    **as_a:**  user, protagonist of this story
+
+    **i_want:**  what the user wants to achieve
+
+    **so_that:**  why the user wants to achieve this
+
+
+    **out_of_scope:**  (clarifying context of what this story **does not include**)
+
+    **in_scope:**  (clarifying context (e.g. example) of what this story **does include**)
+
+
+    **size_guestimate**:  (1, 2, 3, 5, 8, 13) - your initial guisDOR requires 13 and
+    above to be split into multiple User Stories
+
+
+    **Other DOR Requirements:**  These fields must be completed before work can start.
+
+    - Assignee
+
+    - Parent
+
+    - Blockers
+
+
+    **Tasks**: use when necessary for addition context or clarification
+
+
+    - [ ] '
+product:
+  type: Triage Report
+  format: Markdown
+  output_path: avs-standard-library/value-stories/project-mgmt/backlog-intake/outputs/vs-001-extracted-issues.md
+  handoff_repo: null
+  handoff_path: null
