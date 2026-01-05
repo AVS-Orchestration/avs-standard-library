@@ -39,11 +39,16 @@ instructions:
       action: "Analyze the 'transcript' asset. Extract the user's answers regarding the 'Goal' (The Why), 'Inputs' (Context), 'Process' (Instructions), and 'Output' (Product)."
       validation_rule: "The 4 core components of the user's intent are clearly identified."
     - step: 2
-      action: "Map the extracted intent into the 'vs_template' structure:
+      action: >
+        Map the extracted intent into the 'vs_template' structure:
         1. Map 'Goal' answers to the 'goal:' YAML block (as_a, i_want, so_that).
-        2. Map 'Inputs' to the 'context_manifest:' YAML block (key, description, default_path).
+        2. Map 'Inputs' to the 'context_manifest:' YAML block.
+           - For standard files, use 'default_path'.
+           - For specific URLs (e.g., 'https://...'), create a 'search_query' entry with the URL as the query.
+           - For internet search instructions (e.g., 'search for...'), create an entry with 'mcp_tool_name: "firecrawl_scrape"' and include the search instruction in 'mcp_tool_args'.
         3. Map 'Process' to the 'instructions:' YAML block (create logical execution_steps).
-        4. Map 'Output' to the 'product:' YAML block."
+           - Append a final step: "Synthesize a report that achieves, or helps achieve, the goal described in the analyzed transcript."
+        4. Map 'Output' to the 'product:' YAML block.
       validation_rule: "Every piece of the user's intent is mapped to a valid field in the template schema."
     - step: 3
       action: "Generate the final Markdown file. Ensure it includes the standard headers (# VS-XXX...) and correctly formatted YAML code blocks. Do not summarize the template structure; preserve the YAML syntax exactly."
