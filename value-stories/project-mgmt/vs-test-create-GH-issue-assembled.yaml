@@ -1,0 +1,49 @@
+metadata:
+  story_id: vs-test-create-GH-issue
+  version: '1.0'
+  author: AVS Agent
+  status: assembled
+  provider: ollama
+  preferred_model: llama3
+  assembled_at: '2026-01-07T14:04:14.978049'
+goal:
+  as_a: As a System Integration Tester
+  i_want: To verify that the internal GitHub MCP tool can successfully create a new
+    issue in the avs-toolkit repository.
+  so_that: I can automate the creation of tasks and bug reports directly from my value
+    streams.
+instructions:
+  reasoning_pattern: Chain-of-Thought
+  execution_steps:
+  - step_number: 1
+    action: Use the 'create_github_issue' tool to post a new issue.
+    validation_rule: The tool returns a SUCCESS message with a URL to the created
+      issue.
+mcp_servers:
+- name: internal-github
+  command: python
+  args:
+  - avs-toolkit/src/avs_toolkit/github_mcp.py
+  env: null
+context_manifest:
+- key: issue_creation_result
+  description: The result of creating a test issue on GitHub.
+  default_path: null
+  search_query: null
+  mcp_tool_name: create_github_issue
+  mcp_tool_args:
+    owner: AVS-Orchestration
+    repo: avs-toolkit
+    title: 'AVS MCP Integration Test: Issue Creation'
+    body: 'This is an automated test issue created by the AVS Toolkit to verify MCP
+      GitHub tool functionality. Date: 2026-01-05.'
+    labels:
+    - test
+    - integration
+  content: 'SUCCESS: Issue created at https://github.com/AVS-Orchestration/avs-toolkit/issues/23'
+product:
+  type: Test Report
+  format: Markdown
+  output_path: avs-standard-library/value-stories/project-mgmt/vs-test-create-GH-issue-output.md
+  handoff_repo: null
+  handoff_path: null
