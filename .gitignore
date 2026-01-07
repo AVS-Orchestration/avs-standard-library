@@ -1,3 +1,9 @@
+# --- IDEs and OS ---
+
+.DS_Store
+.vscode/
+.idea/\n# Environment Variables\n.env\n.env.local
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
