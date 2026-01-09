@@ -28,8 +28,13 @@ If you are new to AVS, start with the **Meeting Minute Synthesis**:
 
 ```bash
 # Example: Running the 'Hello World' story
+# Note: This example assumes your project folder and the library are siblings.
+# If your setup differs, replace the relative path with the full path to the file.
 cd my-avs-workspace/my-active-project
 avs run ../avs-standard-library/value-stories/01-personal-productivity/vs-meeting-minute-synthesis.md
+
+# Generic Syntax:
+# avs run <path-to-library>/value-stories/01-personal-productivity/vs-meeting-minute-synthesis.md
 ```
 
 ### General Usage
