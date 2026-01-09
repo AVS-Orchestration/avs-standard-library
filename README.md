@@ -6,34 +6,41 @@ This repository serves as a community resource and "Standard Library" of algorit
 
 ## 📂 Repository Structure
 
-- `/value-stories`: Sanitized, production-ready Value Stories for various industries.
+The library is organized by **"Jobs to be Done"** rather than industry verticals, mapping directly to functional personas within an organization:
 
-    - `/job-hunting`: Resumes, Cover Letters, and Interview Prep.
+- **`/value-stories`**
+  - **`01-personal-productivity`**: *Target: The Individual Contributor (Alex)*. Quick wins for reclaiming time (e.g., meeting synthesis, email drafting).
+  - **`02-project-alignment`**: *Target: The TPM (Alex)*. Automation for status reporting, dependency mapping, and blocker analysis.
+  - **`03-strategic-governance`**: *Target: The Director (Jordan)*. Portfolio-level visibility, risk heat maps, and resource modeling.
+  - **`04-executive-briefing`**: *Target: The Executive (Casey)*. High-velocity decision support and market intelligence.
+  - **`05-career-management`**: *(Legacy/Specialized)* Tools for job hunting and career development.
+  - **`99-meta-tools`**: Builders, compilers, and generators for creating other Value Stories.
 
-    - `/speech-2-value-story`: **The Meta-Architect**. A workflow to convert raw voice transcripts into valid AVS Value Stories automatically.
-
-    - `/research`: Market analysis and data synthesis.
-
-- `/templates`: Blank YAML and Markdown templates for creating your own stories.
+- **`/templates`**: Blank YAML and Markdown templates for creating your own stories.
 
 ## 🚀 How to Use
 
-The AVS Toolkit allows you to run these stories directly from GitHub without cloning this repository.
+The AVS Standard Library is designed to be referenced, not modified.
 
-### 1. Identify a Story
+### Try the "Hello World" Story
 
-Browse the /stories folder and find a story you'd like to use. Copy its Raw URL.
+If you are new to AVS, start with the **Meeting Minute Synthesis**:
 
-### 2. Run with AVS
-
-From your terminal, use the avs global command:
-
+```bash
+# Example: Running the 'Hello World' story
+cd my-avs-workspace/my-active-project
+avs run ../avs-standard-library/value-stories/01-personal-productivity/vs-meeting-minute-synthesis.md
 ```
-# Assemble the context (The Information Hunt)
-avs assemble [https://github.com/AVS-Orchestration/standard-library/blob/main/stories/job-hunting/tailor-resume.md](https://github.com/AVS-Orchestration/standard-library/blob/main/stories/job-hunting/tailor-resume.md)
 
-# Execute the stream
-avs run VS-001-assembled.yaml
+### General Usage
+
+1.  **Clone this repo** into your **AVS Private Workspace** (alongside the toolkit).
+2.  **Reference templates** using their relative path from your active project folder.
+
+```bash
+# Example: Running a standard story from your private project folder
+cd my-avs-workspace/my-active-project
+avs run ../avs-standard-library/value-stories/05-career-management/vs-resume-tailor.md
 ```
 
 ## 🛠 Prerequisites
